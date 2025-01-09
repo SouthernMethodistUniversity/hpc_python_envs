@@ -50,14 +50,17 @@ for config in config/*.json; do
 
     # create a conda env with the python version and any other request packages
     echo "  creating mamba env"
-    echo "  cmd: 'mamba create -p ${ENV_PATH} ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1'"
+    mamba_cmd=
 
     output_log="logs/${CLUSTER}/${version}/${DATE}/mamba_${NAME}.log"
-    mamba create -p ${ENV_PATH} -c conda-forge ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1
+    mamba_cmd="create -p ${ENV_PATH} -c conda-forge ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1"
+    echo "  cmd: 'mamba ${mamba_cmd}'"
+    mamba ${mamba_cmd}
 
     # load env and install pip-tools, then generate a requirements.txt
     mamba activate ${ENV_PATH}
-    pip install pip-tools
+    output_log="logs/${CLUSTER}/${version}/${DATE}/pip-tools_${NAME}.log"
+    pip install pip-tools >> ${output_log} 2>&1
 
     echo "  running pip-compile"
     filename=$(basename -- "$config")
