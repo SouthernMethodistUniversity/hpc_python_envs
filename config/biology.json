@@ -2,7 +2,7 @@
   "name": "biology",
   "description": "This environment provides tools for biological statistics and genomic tasks",
   "python versions": [
-    "3.11.11",
+    "3.11.11"
   ],
   "extra modules": [],
   "extra-index-urls": [],
