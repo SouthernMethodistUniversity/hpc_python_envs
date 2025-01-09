@@ -22,6 +22,8 @@
     "htslib",
     "mosdepth",
     "plink2",
+    "pysam",
+    "pysamstats",
     "samtools",
     "sra-tools",
     "subread",
