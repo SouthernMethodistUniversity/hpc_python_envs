@@ -60,7 +60,7 @@ for config in config/*.json; do
     # load env and install pip-tools, then generate a requirements.txt
     mamba activate ${ENV_PATH}
     output_log="logs/${CLUSTER}/${version}/${DATE}/pip-tools_${NAME}.log"
-    pip install pip-tools >> ${output_log} 2>&1
+    pip install pip-tools setuptools build >> ${output_log} 2>&1
 
     echo "  running pip-compile"
     filename=$(basename -- "$config")
