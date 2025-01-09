@@ -2,7 +2,7 @@
   "name": "pytorch",
   "description": "This environment provides AI/ML tools with Pytorch as the principle package",
   "python versions": [
-    "3.11.11",
+    "3.11.11"
   ],
   "extra modules": [],
   "extra-index-urls": [

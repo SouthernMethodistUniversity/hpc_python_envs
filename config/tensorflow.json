@@ -2,7 +2,7 @@
   "name": "tensorflow",
   "description": "This environment provides AI/ML tools with TensorFlow as the principle package",
   "python versions": [
-    "3.11.11",
+    "3.11.11"
   ],
   "extra modules": [],
   "extra-index-urls": [
