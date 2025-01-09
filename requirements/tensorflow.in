@@ -16,7 +16,7 @@ scikit-learn
 scipy
 seaborn
 statsmodels
-tensorflow[and-cuda]
+tensorflow[with-cuda]
 textblob
 wordcloud
 xgboost
