@@ -3,7 +3,6 @@ bwa
 bx-python
 catboost
 dask[complete]
-iced
 jupyterlab
 lightgbm
 macs2
