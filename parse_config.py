@@ -45,9 +45,9 @@ if __name__ == "__main__":
                      print("")
             if args.urls:
                 try:
-                     tmp = ' --extra-index-urls '.join(data['extra-index-urls'])
+                     tmp = ' --extra-index-url '.join(data['extra-index-urls'])
                      if tmp.strip() != '':
-                         tmp = '--extra-index-urls ' + tmp
+                         tmp = '--extra-index-url ' + tmp
                      print(tmp)
                 except:
                      print("")
