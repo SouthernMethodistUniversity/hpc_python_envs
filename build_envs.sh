@@ -41,7 +41,7 @@ for config in config/*.json; do
     echo "  Base environment: $BASE_ENV"
     if [ ! -d "$BASE_ENV" ]; then
       echo "  ${BASE_ENV} does not exist, creating one"
-      output_log = "logs/${CLUSTER}/${version}/${DATE}/mamba_minimal.log"
+      output_log="logs/${CLUSTER}/${version}/${DATE}/mamba_minimal.log"
       mamba create -p ${BASE_ENV} python=${version} -y >> ${output_log} 2>&1
     fi
 
@@ -50,7 +50,7 @@ for config in config/*.json; do
 
     # create a conda env with the python version and any other request packages
     echo "  creating mamba env"
-    output_log = "logs/${CLUSTER}/${version}/${DATE}/mamba_${NAME}.log"
+    output_log="logs/${CLUSTER}/${version}/${DATE}/mamba_${NAME}.log"
     mamba create -p ${ENV_PATH} ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1
 
     # load env and install pip-tools, then generate a requirements.txt
@@ -61,12 +61,12 @@ for config in config/*.json; do
     filename=$(basename -- "$config")
     filename="requirements/${filename%.*}.in"
     outfile="logs/${CLUSTER}/${version}/${DATE}/requirments_${NAME}.txt"
-    output_log = "logs/${CLUSTER}/${version}/${DATE}/pip_compile_${NAME}.log"
+    output_log="logs/${CLUSTER}/${version}/${DATE}/pip_compile_${NAME}.log"
     pip-compile ${EXTRA_URLS} ${filename} --output-file=${outfile} >> ${output_log} 2>&1
 
     # install the pip packages
     echo "  installing pip packages"
-    output_log = "logs/${CLUSTER}/${version}/${DATE}/pip_install_${NAME}.log"
+    output_log="logs/${CLUSTER}/${version}/${DATE}/pip_install_${NAME}.log"
     pip install ${EXTRA_URLS} -r ${outfile} >> ${output_log} 2>&1
   done
 done
