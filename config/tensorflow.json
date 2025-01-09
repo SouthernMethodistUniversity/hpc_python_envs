@@ -1,6 +1,6 @@
 {
-  "name": "AI+ML",
-  "description": "This environment provides AI/ML tools with TensorFlow and PyTorch as the principle packages",
+  "name": "tensorflow",
+  "description": "This environment provides AI/ML tools with TensorFlow as the principle package",
   "python versions": [
     "3.11.11",
   ],
@@ -8,6 +8,6 @@
   "extra-index-urls": [
     "https://pypi.nvidia.com"
   ],
-  "environment_flags": {
-  }
+  "environment_flags": {},
+  "module_message": "Errors like Unable to register cuDNN factory are upstream errors that we cannot fix. Tensorflow appears to work despite these errors. See https://github.com/tensorflow/tensorflow/issues/62075"
 }
