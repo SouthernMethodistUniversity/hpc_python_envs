@@ -1,0 +1,11 @@
+{
+  "name": "geospatial",
+  "description": "This environment provides tools for geospatial applications",
+  "python versions": [
+    "3.11.11",
+  ],
+  "extra modules": [],
+  "extra-index-urls": [],
+  "environment_flags": {
+  }
+}
