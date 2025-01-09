@@ -42,7 +42,7 @@ for config in config/*.json; do
     if [ ! -d "$BASE_ENV" ]; then
       echo "  ${BASE_ENV} does not exist, creating one"
       output_log="logs/${CLUSTER}/${version}/${DATE}/mamba_minimal.log"
-      mamba create -p ${BASE_ENV} python=${version} -y >> ${output_log} 2>&1
+      mamba create -p ${BASE_ENV} -c conda-forge python=${version} -y >> ${output_log} 2>&1
     fi
 
     # create the requested env
@@ -53,7 +53,7 @@ for config in config/*.json; do
     echo "  cmd: 'mamba create -p ${ENV_PATH} ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1'"
 
     output_log="logs/${CLUSTER}/${version}/${DATE}/mamba_${NAME}.log"
-    mamba create -p ${ENV_PATH} ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1
+    mamba create -p ${ENV_PATH} -c conda-forge ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1
 
     # load env and install pip-tools, then generate a requirements.txt
     mamba activate ${ENV_PATH}
