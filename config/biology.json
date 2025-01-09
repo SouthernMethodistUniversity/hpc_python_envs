@@ -7,5 +7,26 @@
   "extra modules": [],
   "extra-index-urls": [],
   "environment_flags": {
-  }
+  },
+  "extra conda channels": [
+    "bioconda"
+  ],
+  "conda packages": [
+    "bcftools",
+    "bedtools",
+    "bowtie2",
+    "cython",
+    "fastqc",
+    "gwama",
+    "hisat2",
+    "htslib",
+    "mosdepth",
+    "plink2",
+    "pysam",
+    "pysamstats",
+    "samtools",
+    "sra-tools",
+    "subread",
+    "trimmomatic"
+  ]
 }
