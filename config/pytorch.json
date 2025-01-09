@@ -8,5 +8,5 @@
   "extra-index-urls": [
     "https://pypi.nvidia.com"
   ],
-  "environment_flags": {},
+  "environment_flags": {}
 }
