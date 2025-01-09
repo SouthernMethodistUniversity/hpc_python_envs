@@ -70,6 +70,9 @@ for config in config/*.json; do
     echo "  installing pip packages"
     output_log="logs/${CLUSTER}/${version}/${DATE}/pip_install_${NAME}.log"
     pip install ${EXTRA_URLS} -r ${outfile} >> ${output_log} 2>&1
+
+    # deactivate
+    mamba deactivate
   done
 done
 
