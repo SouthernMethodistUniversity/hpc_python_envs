@@ -7,11 +7,10 @@ descartes
 earthpy
 fiona
 folium
-gdal
 geopandas
 geoplot
 geos
-hdf5
+h5py
 jupyterlab
 lightgbm
 mapclassify
