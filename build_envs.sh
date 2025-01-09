@@ -50,6 +50,8 @@ for config in config/*.json; do
 
     # create a conda env with the python version and any other request packages
     echo "  creating mamba env"
+    echo "  cmd: 'mamba create -p ${ENV_PATH} ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1'"
+
     output_log="logs/${CLUSTER}/${version}/${DATE}/mamba_${NAME}.log"
     mamba create -p ${ENV_PATH} ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1
 

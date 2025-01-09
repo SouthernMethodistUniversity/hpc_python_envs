@@ -45,12 +45,18 @@ if __name__ == "__main__":
                      print("")
             if args.urls:
                 try:
-                     print(' --extra-index-urls '.join(data['extra-index-urls']))
+                     tmp = ' --extra-index-urls '.join(data['extra-index-urls'])
+                     if tmp.strip() != '':
+                         tmp = '--extra-index-urls ' + tmp
+                     print(tmp)
                 except:
                      print("")
             if args.channels:
                 try:
-                     print(' -c '.join(data['extra conda channels']))
+                     tmp = ' -c '.join(data['extra conda channels'])
+                     if tmp.strip() != '':
+                         tmp = '-c ' + tmp
+                     print(tmp)
                 except:
                      print("")
             if args.conda:
