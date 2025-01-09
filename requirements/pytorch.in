@@ -16,7 +16,6 @@ scikit-learn
 scipy
 seaborn
 statsmodels
-tensorflow[and-cuda]
 textblob
 torch
 torchaudio
