@@ -8,15 +8,55 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Parse config file for building python env')
     parser.add_argument('input', nargs=1, type=pathlib.Path)
     parser.add_argument('--versions', help="print pyhton version(s) to install", default=False, action='store_true')
-    parser.add_argument('--description', help="print pyhton version(s) to install", default=False, action='store_true')
+    parser.add_argument('--description', help="print module description", default=False, action='store_true')
+    parser.add_argument('--name', help="print module name", default=False, action='store_true')
+    parser.add_argument('--modules', help="print extra modules", default=False, action='store_true')
+    parser.add_argument('--urls', help="print extra urls", default=False, action='store_true')
+    parser.add_argument('--channels', help="print extra channels", default=False, action='store_true')
+    parser.add_argument('--conda', help="print extra conda packages", default=False, action='store_true')
 
-    # parse the input
+ # parse the input
     args = parser.parse_args()
 
-    with open(args.input[0], 'r') as file:
-        data = json.load(file)
+    try:
 
-        if args.versions:
-            print(','.join(data['python versions']))
-        elif args.description:
-           print(data['description'])
+        with open(args.input[0], 'r') as file:
+            data = json.load(file)
+
+            if args.versions:
+                try:
+                     print(','.join(data['python versions']))
+                except:
+                     print("")
+            elif args.description:
+                try:
+                     print(data['description'])
+                except:
+                     print("")
+            elif args.name:
+                try:
+                     print(data['name'])
+                except:
+                     print("")
+            if args.modules:
+                try:
+                     print(','.join(data['extra modules']))
+                except:
+                     print("")
+            if args.urls:
+                try:
+                     print(' --extra-index-urls '.join(data['extra-index-urls']))
+                except:
+                     print("")
+            if args.channels:
+                try:
+                     print(' -c '.join(data['extra conda channels']))
+                except:
+                     print("")
+            if args.conda:
+                try:
+                     print(' '.join(data['conda packages']))
+                except:
+                     print("")
+    except:
+        print("")
