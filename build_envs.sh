@@ -120,13 +120,15 @@ EOL
     else
       echo "  mamba env already exists, skipping"
     fi
+
     # create a module file
     mkdir -p modules/${CLUSTER}/python/${version}/${NAME}
     MODULE_FILE=modules/${CLUSTER}/python/${version}/$NAME/${DATE}.lua
     ACTIVATE_SCRIPT="$(pwd)/activate_env.sh"
     VENV_NAME="auto_python_${version}_${NAME}_${DATE}"
     CONDA_PATH=${ENV_PATH}
-    (
+    if [ ! -d "${MODULE_FILE}" ] || [[ "$OVERWRITE_MODULES" == "TRUE" ]] ; then
+      (
 sed 's/^ \{2\}//' > "$MODULE_FILE" << EOL
 
 help([[
@@ -146,10 +148,19 @@ family("Python")
 always_load('${MINIFORGE_MOD}')
 local home = os.getenv("HOME")
 local user_libs = pathJoin(home, '.venv/${VENV_NAME}')
+
+prepend_path("PATH", "${CONDA_PATH}/bin/")
+prepend_path("LD_LIBRARY_PATH", "${CONDA_PATH}/lib/")
+prepend_path("LIBRARY_PATH", "${CONDA_PATH}/lib/")
+prepend_path("C_INCLUDE_PATH", "${CONDA_PATH}/include/")
+prepend_path("CPLUS_INCLUDE_PATH", "${CONDA_PATH}/include/")
+prepend_path("MANPATH", "${CONDA_PATH}/man/")
+
 source_sh("bash", "${ACTIVATE_SCRIPT} ${CONDA_PATH} " .. user_libs)
 
 EOL
-    )
+      )
+  fi
   done
 done
 
