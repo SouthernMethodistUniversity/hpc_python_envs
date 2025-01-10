@@ -70,7 +70,7 @@ family("Python")
 always_load('${MINIFORGE_MOD}')
 local home = os.getenv("HOME")
 local user_libs = pathJoin(home, '.venv/${VENV_NAME}')
-source_sh("bash", "${ACTIVATE_SCRIPT} {CONDA_PATH} " .. user_libs)
+source_sh("bash", "${ACTIVATE_SCRIPT} ${CONDA_PATH} " .. user_libs)
 
 EOL
       )
@@ -138,7 +138,7 @@ family("Python")
 always_load('${MINIFORGE_MOD}')
 local home = os.getenv("HOME")
 local user_libs = pathJoin(home, '.venv/${VENV_NAME}')
-source_sh("bash", "${ACTIVATE_SCRIPT} {CONDA_PATH} " .. user_libs)
+source_sh("bash", "${ACTIVATE_SCRIPT} ${CONDA_PATH} " .. user_libs)
 
 EOL
     )
