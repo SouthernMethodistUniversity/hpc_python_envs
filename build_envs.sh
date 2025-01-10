@@ -43,6 +43,36 @@ for config in config/*.json; do
       echo "  ${BASE_ENV} does not exist, creating one"
       output_log="logs/${CLUSTER}/${version}/${DATE}/mamba_minimal.log"
       mamba create -p ${BASE_ENV} -c conda-forge python=${version} -y >> ${output_log} 2>&1
+
+      # create a module file
+      mkdir -p /modules/${CLUSTER}/python/${version}/
+      MODULE_FILE=../../modules/${CLUSTER}/python/${version}/minimal.lua
+      ACTIVATE_SCRIPT="$(pwd)/activate_env.sh"
+      VENV_NAME="auto_python_${version}_minimal"
+      (
+      sed 's/^ \{2\}//' > "$MODULE_FILE" << EOL
+
+      help([[
+      Name: Python Environment ${NAME}
+      Version: ${version}/${DATE}
+      Website: NA
+
+      ${DESCRIPTION}
+
+      ]])
+      whatis("Name: Python Environment -- ${NAME}")
+      whatis("Version: ${version}")
+      whatis("Category: Python")
+      whatis("Description: ${DESCRIPTION}")
+      family("Python")
+
+      always_load('${MINIFORGE_MOD}')
+      local home = os.getenv("HOME")
+      local user_libs = pathJoin(home, '.venv/${VENV_NAME}')
+      source_sh("bash", "${ACTIVATE_SCRIPT} {CONDA_PATH} " .. user_libs)
+
+      EOL
+      )
     fi
 
     # create the requested env
@@ -80,6 +110,36 @@ for config in config/*.json; do
 
     # deactivate
     mamba deactivate
+
+    # create a module file
+    mkdir -p /modules/${CLUSTER}/python/${version}/${NAME}
+    MODULE_FILE=../../modules/${CLUSTER}/python/${version}/$NAME/${DATE}.lua
+    ACTIVATE_SCRIPT="$(pwd)/activate_env.sh"
+    VENV_NAME="auto_python_${version}_${NAME}_${DATE}"
+    (
+    sed 's/^ \{2\}//' > "$MODULE_FILE" << EOL
+
+    help([[
+    Name: Python Environment ${NAME}
+    Version: ${version}/${DATE}
+    Website: NA
+
+    ${DESCRIPTION}
+
+    ]])
+    whatis("Name: Python Environment -- ${NAME}")
+    whatis("Version: ${version}")
+    whatis("Category: Python")
+    whatis("Description: ${DESCRIPTION}")
+    family("Python")
+
+    always_load('${MINIFORGE_MOD}')
+    local home = os.getenv("HOME")
+    local user_libs = pathJoin(home, '.venv/${VENV_NAME}')
+    source_sh("bash", "${ACTIVATE_SCRIPT} {CONDA_PATH} " .. user_libs)
+
+    EOL
+    )
   done
 done
 
