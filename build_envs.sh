@@ -49,6 +49,7 @@ for config in config/*.json; do
       MODULE_FILE=modules/${CLUSTER}/python/${version}/minimal.lua
       ACTIVATE_SCRIPT="$(pwd)/activate_env.sh"
       VENV_NAME="auto_python_${version}_minimal"
+      CONDA_PATH=${BASE_ENV}
       (
 sed 's/^ \{2\}//' > "$MODULE_FILE" << EOL
 
@@ -116,6 +117,7 @@ EOL
     MODULE_FILE=modules/${CLUSTER}/python/${version}/$NAME/${DATE}.lua
     ACTIVATE_SCRIPT="$(pwd)/activate_env.sh"
     VENV_NAME="auto_python_${version}_${NAME}_${DATE}"
+    CONDA_PATH=${ENV_PATH}
     (
 sed 's/^ \{2\}//' > "$MODULE_FILE" << EOL
 
