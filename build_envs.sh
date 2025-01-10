@@ -15,9 +15,12 @@ CLUSTER=$(scontrol show config | grep ClusterName | grep -oP '= \K.+')
 DATE=$(date +'%Y.%m.%d')
 
 # install prefix
-PREFIX="/hpc/${CLUSTER}/python"
-#PREFIX="$HOME/env_testing/${CLUSTER}/python"
-
+USER=$(whoami)
+if [[ "$USER" == "appmgr" ]]
+  PREFIX="/hpc/${CLUSTER}/python"
+else
+  PREFIX="$HOME/env_testing/${CLUSTER}/python"
+fi
 echo "Install prefix: ${PREFIX}"
 
 # loop over the configs
