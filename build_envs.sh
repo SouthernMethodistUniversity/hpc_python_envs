@@ -19,7 +19,7 @@ DATE=$(date +'%Y.%m.%d')
 
 # install prefix
 USER=$(whoami)
-if [[ "$USER" == "appmgr" ]]
+if [[ "$USER" == "appmgr" ]]; then
   PREFIX="/hpc/${CLUSTER}/python"
 else
   PREFIX="$HOME/env_testing/${CLUSTER}/python"
