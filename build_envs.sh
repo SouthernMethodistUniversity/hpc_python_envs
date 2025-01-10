@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+OVERWRITE_CONDA="FALSE"
+OVERWRITE_MODULES="FALSE"
+
 # load miniforge
 module purge
 module load miniforge
@@ -85,36 +88,38 @@ EOL
     LOG_BASE="logs/${CLUSTER}/${version}/${NAME}/${DATE}"
     mkdir -p ${LOG_BASE}
 
-    # create a conda env with the python version and any other request packages
-    echo "  creating mamba env"
-    mamba_cmd=
+    if [ ! -d "${ENV_PATH}" ] || [[ "$OVERWRITE_CONDA" == "TRUE" ]] ; then
+      # create a conda env with the python version and any other request packages
+      echo "  creating mamba env"
 
-    output_log="${LOG_BASE}/mamba.log"
-    mamba_cmd="create -p ${ENV_PATH} -c conda-forge ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1"
-    echo "  cmd: 'mamba ${mamba_cmd}'"
-    mamba create -p ${ENV_PATH} -c conda-forge ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1
+      output_log="${LOG_BASE}/mamba.log"
+      mamba_cmd="create -p ${ENV_PATH} -c conda-forge ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1"
+      echo "  cmd: 'mamba ${mamba_cmd}'"
+      mamba create -p ${ENV_PATH} -c conda-forge ${CHANNELS} python=${version} ${CONDA_PKGS} -y  >> ${output_log} 2>&1
 
-    # load env and install pip-tools, then generate a requirements.txt
-    mamba activate ${ENV_PATH}
-    output_log="${LOG_BASE}/pip-tools.log"
-    echo "which pip: $(which pip)"
-    pip install pip-tools setuptools build >> ${output_log} 2>&1
+      # load env and install pip-tools, then generate a requirements.txt
+      mamba activate ${ENV_PATH}
+      output_log="${LOG_BASE}/pip-tools.log"
+      echo "which pip: $(which pip)"
+      pip install pip-tools setuptools build >> ${output_log} 2>&1
 
-    echo "  running pip-compile"
-    filename=$(basename -- "$config")
-    filename="requirements/${filename%.*}.in"
-    outfile="${LOG_BASE}/requirments.txt"
-    output_log="${LOG_BASE}/pip_compile.log"
-    pip-compile ${EXTRA_URLS} ${filename} --output-file=${outfile} >> ${output_log} 2>&1
+      echo "  running pip-compile"
+      filename=$(basename -- "$config")
+      filename="requirements/${filename%.*}.in"
+      outfile="${LOG_BASE}/requirments.txt"
+      output_log="${LOG_BASE}/pip_compile.log"
+      pip-compile ${EXTRA_URLS} ${filename} --output-file=${outfile} >> ${output_log} 2>&1
 
-    # install the pip packages
-    echo "  installing pip packages"
-    output_log="${LOG_BASE}/pip_install.log"
-    pip install ${EXTRA_URLS} -r ${outfile} >> ${output_log} 2>&1
+      # install the pip packages
+      echo "  installing pip packages"
+      output_log="${LOG_BASE}/pip_install.log"
+      pip install ${EXTRA_URLS} -r ${outfile} >> ${output_log} 2>&1
 
-    # deactivate
-    mamba deactivate
-
+      # deactivate
+      mamba deactivate
+    else
+      echo "  mamba env already exists, skipping"
+    fi
     # create a module file
     mkdir -p modules/${CLUSTER}/python/${version}/${NAME}
     MODULE_FILE=modules/${CLUSTER}/python/${version}/$NAME/${DATE}.lua
