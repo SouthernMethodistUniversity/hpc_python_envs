@@ -50,28 +50,28 @@ for config in config/*.json; do
       ACTIVATE_SCRIPT="$(pwd)/activate_env.sh"
       VENV_NAME="auto_python_${version}_minimal"
       (
-      sed 's/^ \{2\}//' > "$MODULE_FILE" << EOL
+sed 's/^ \{2\}//' > "$MODULE_FILE" << EOL
 
-      help([[
-      Name: Python Environment ${NAME}
-      Version: ${version}/${DATE}
-      Website: NA
+help([[
+Name: Python
+Version: ${version}
+Website: NA
 
-      ${DESCRIPTION}
+Minimal installation of Python ${version}
 
-      ]])
-      whatis("Name: Python Environment -- ${NAME}")
-      whatis("Version: ${version}")
-      whatis("Category: Python")
-      whatis("Description: ${DESCRIPTION}")
-      family("Python")
+]])
+whatis("Name: Python Environment -- ${NAME}")
+whatis("Version: ${version}")
+whatis("Category: Python")
+whatis("Description: ${DESCRIPTION}")
+family("Python")
 
-      always_load('${MINIFORGE_MOD}')
-      local home = os.getenv("HOME")
-      local user_libs = pathJoin(home, '.venv/${VENV_NAME}')
-      source_sh("bash", "${ACTIVATE_SCRIPT} {CONDA_PATH} " .. user_libs)
+always_load('${MINIFORGE_MOD}')
+local home = os.getenv("HOME")
+local user_libs = pathJoin(home, '.venv/${VENV_NAME}')
+source_sh("bash", "${ACTIVATE_SCRIPT} {CONDA_PATH} " .. user_libs)
 
-      EOL
+EOL
       )
     fi
 
@@ -117,28 +117,28 @@ for config in config/*.json; do
     ACTIVATE_SCRIPT="$(pwd)/activate_env.sh"
     VENV_NAME="auto_python_${version}_${NAME}_${DATE}"
     (
-    sed 's/^ \{2\}//' > "$MODULE_FILE" << EOL
+sed 's/^ \{2\}//' > "$MODULE_FILE" << EOL
 
-    help([[
-    Name: Python Environment ${NAME}
-    Version: ${version}/${DATE}
-    Website: NA
+help([[
+Name: Python Environment ${NAME}
+Version: ${version}/${DATE}
+Website: NA
 
-    ${DESCRIPTION}
+${DESCRIPTION}
 
-    ]])
-    whatis("Name: Python Environment -- ${NAME}")
-    whatis("Version: ${version}")
-    whatis("Category: Python")
-    whatis("Description: ${DESCRIPTION}")
-    family("Python")
+]])
+whatis("Name: Python Environment -- ${NAME}")
+whatis("Version: ${version}")
+whatis("Category: Python")
+whatis("Description: ${DESCRIPTION}")
+family("Python")
 
-    always_load('${MINIFORGE_MOD}')
-    local home = os.getenv("HOME")
-    local user_libs = pathJoin(home, '.venv/${VENV_NAME}')
-    source_sh("bash", "${ACTIVATE_SCRIPT} {CONDA_PATH} " .. user_libs)
+always_load('${MINIFORGE_MOD}')
+local home = os.getenv("HOME")
+local user_libs = pathJoin(home, '.venv/${VENV_NAME}')
+source_sh("bash", "${ACTIVATE_SCRIPT} {CONDA_PATH} " .. user_libs)
 
-    EOL
+EOL
     )
   done
 done
