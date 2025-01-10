@@ -45,8 +45,8 @@ for config in config/*.json; do
       mamba create -p ${BASE_ENV} -c conda-forge python=${version} -y >> ${output_log} 2>&1
 
       # create a module file
-      mkdir -p /modules/${CLUSTER}/python/${version}/
-      MODULE_FILE=../../modules/${CLUSTER}/python/${version}/minimal.lua
+      mkdir -p modules/${CLUSTER}/python/${version}/
+      MODULE_FILE=modules/${CLUSTER}/python/${version}/minimal.lua
       ACTIVATE_SCRIPT="$(pwd)/activate_env.sh"
       VENV_NAME="auto_python_${version}_minimal"
       (
@@ -112,8 +112,8 @@ for config in config/*.json; do
     mamba deactivate
 
     # create a module file
-    mkdir -p /modules/${CLUSTER}/python/${version}/${NAME}
-    MODULE_FILE=../../modules/${CLUSTER}/python/${version}/$NAME/${DATE}.lua
+    mkdir -p modules/${CLUSTER}/python/${version}/${NAME}
+    MODULE_FILE=modules/${CLUSTER}/python/${version}/$NAME/${DATE}.lua
     ACTIVATE_SCRIPT="$(pwd)/activate_env.sh"
     VENV_NAME="auto_python_${version}_${NAME}_${DATE}"
     (
