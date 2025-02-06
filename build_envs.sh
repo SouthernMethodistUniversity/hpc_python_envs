@@ -40,48 +40,6 @@ for config in config/*.json; do
   for version in ${PYTHON_VERSIONS//,/ }; do
     echo "PYTHON VERSION: ${version}"
 
-    mkdir -p "logs/${CLUSTER}/${version}/${DATE}"
-
-    # ensure we have a trivial installation requested python version
-    BASE_ENV="${PREFIX}/${version}/minimal"
-    echo "  Base environment: $BASE_ENV"
-    if [ ! -d "$BASE_ENV" ]; then
-      echo "  ${BASE_ENV} does not exist, creating one"
-      output_log="logs/${CLUSTER}/${version}/${DATE}/mamba_minimal.log"
-      mamba create -p ${BASE_ENV} -c conda-forge python=${version} -y >> ${output_log} 2>&1
-
-      # create a module file
-      mkdir -p modules/${CLUSTER}/python/${version}/
-      MODULE_FILE=modules/${CLUSTER}/python/${version}/minimal.lua
-      ACTIVATE_SCRIPT="$(pwd)/activate_env.sh"
-      VENV_NAME="auto_python_${version}_minimal"
-      CONDA_PATH=${BASE_ENV}
-      (
-sed 's/^ \{2\}//' > "$MODULE_FILE" << EOL
-
-help([[
-Name: Python
-Version: ${version}
-Website: NA
-
-Minimal installation of Python ${version}
-
-]])
-whatis("Name: Python Environment -- ${NAME}")
-whatis("Version: ${version}")
-whatis("Category: Python")
-whatis("Description: ${DESCRIPTION}")
-family("Python")
-
-always_load('${MINIFORGE_MOD}')
-local home = os.getenv("HOME")
-local user_libs = pathJoin(home, '.venv/${VENV_NAME}')
-source_sh("bash", "${ACTIVATE_SCRIPT} ${CONDA_PATH} " .. user_libs)
-
-EOL
-      )
-    fi
-
     # create the requested env
     ENV_PATH="${PREFIX}/${version}/${NAME}-${DATE}"
 
