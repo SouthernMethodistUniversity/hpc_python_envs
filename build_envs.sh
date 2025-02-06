@@ -107,13 +107,6 @@ always_load('${MINIFORGE_MOD}')
 local home = os.getenv("HOME")
 local user_libs = pathJoin(home, '.venv/${VENV_NAME}')
 
-prepend_path("PATH", "${CONDA_PATH}/bin/")
-prepend_path("LD_LIBRARY_PATH", "${CONDA_PATH}/lib/")
-prepend_path("LIBRARY_PATH", "${CONDA_PATH}/lib/")
-prepend_path("C_INCLUDE_PATH", "${CONDA_PATH}/include/")
-prepend_path("CPLUS_INCLUDE_PATH", "${CONDA_PATH}/include/")
-prepend_path("MANPATH", "${CONDA_PATH}/man/")
-
 source_sh("bash", "${ACTIVATE_SCRIPT} ${CONDA_PATH} " .. user_libs)
 
 EOL
