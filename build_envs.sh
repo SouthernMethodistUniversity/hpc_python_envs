@@ -10,6 +10,7 @@ module load miniforge
 # get full module name
 MINIFORGE_MOD=$(module -t list  2>&1)
 echo "Using module: ${MINIFORGE_MOD}"
+MINIFORGE_MOD_INIT="/hpc/m3/apps/miniforge/${MINIFORGE_MOD#*/}/etc/profile.d/conda.sh"
 
 # get cluster name
 CLUSTER=$(scontrol show config | grep ClusterName | grep -oP '= \K.+')
@@ -103,11 +104,12 @@ whatis("Category: Python")
 whatis("Description: ${DESCRIPTION}")
 family("Python")
 
-always_load('${MINIFORGE_MOD}')
+depends_on('${MINIFORGE_MOD}')
 local home = os.getenv("HOME")
 local user_libs = pathJoin(home, '.venv/${VENV_NAME}')
+local conda_init = '${MINIFORGE_MOD_INIT}'
 
-source_sh("bash", "${ACTIVATE_SCRIPT} ${CONDA_PATH} " .. user_libs)
+source_sh("bash", "${ACTIVATE_SCRIPT} ${CONDA_PATH} " .. user_libs .. ' ' .. conda_init)
 
 EOL
       )
