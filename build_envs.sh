@@ -80,6 +80,10 @@ for config in config/*.json; do
       echo "  mamba env already exists, skipping"
     fi
 
+    # remove group write permissions so members of admin groups can't change
+    # files as the wrong user (or at least reduce the chances)
+    chmod g-w -R ${ENV_PATH}
+
     # create a module file
     mkdir -p modules/${CLUSTER}/python/${version}/${NAME}
     MODULE_FILE=modules/${CLUSTER}/python/${version}/$NAME/${DATE}.lua
