@@ -1,0 +1,11 @@
+{
+  "name": "gerrychain",
+  "description": "This environment provides GerryChain plus commonly used data science tools",
+  "python versions": [
+    "3.11.11"
+  ],
+  "extra modules": [],
+  "extra-index-urls": [],
+  "environment_flags": {
+  }
+}
