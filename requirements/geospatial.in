@@ -3,6 +3,7 @@ catboost
 census
 contextily
 dask[complete]
+daspy-toolbox
 descartes
 earthpy
 fiona
@@ -11,13 +12,15 @@ geopandas
 geoplot
 geos
 h5py
+ipympl
 jupyterlab
+keras
 lightgbm
 mapclassify
 matplotlib
 nltk
 numpy
-numpy
+obspy
 pandas
 pillow
 plotly
@@ -32,9 +35,12 @@ rtree
 scikit-learn
 scipy
 seaborn
+seisbench
 shapely
 statsmodels
+tensorflow
 textblob
+tqdm
 wordcloud
 xarray
 xgboost
